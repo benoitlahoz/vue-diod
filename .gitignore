@@ -10,7 +10,6 @@ lerna-debug.log*
 # Directories
 node_modules/
 dist/
-!/packages/vue-diod/docs/.vitepress/dist
 
 # Editor directories and files
 .vscode/*
