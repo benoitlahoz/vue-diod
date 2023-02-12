@@ -1,6 +1,6 @@
 import type { App } from 'vue';
 import DefaultTheme from 'vitepress/theme';
-import VueDiod from '../../../src';
+import VueDiod from '../../../packages/vue-diod';
 import {
   AbstractSimpleCounter,
   AbstractCounter,

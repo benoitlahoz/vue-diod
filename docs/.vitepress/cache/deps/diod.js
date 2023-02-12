@@ -1,4 +1,4 @@
-// ../../node_modules/diod/lib/diod.es.js
+// node_modules/diod/lib/diod.es.js
 var RegistrationType = ((RegistrationType2) => {
   RegistrationType2["Class"] = "class";
   RegistrationType2["Factory"] = "factory";

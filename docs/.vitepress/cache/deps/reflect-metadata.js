@@ -1,4 +1,4 @@
-// ../../node_modules/reflect-metadata/Reflect.js
+// node_modules/reflect-metadata/Reflect.js
 var Reflect;
 (function(Reflect2) {
   (function(factory) {

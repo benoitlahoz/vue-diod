@@ -1,0 +1,25 @@
+{
+  "hash": "9addb071",
+  "browserHash": "a94ceb7b",
+  "optimized": {
+    "vue": {
+      "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "6c528ece",
+      "needsInterop": false
+    },
+    "reflect-metadata": {
+      "src": "../../../../node_modules/reflect-metadata/Reflect.js",
+      "file": "reflect-metadata.js",
+      "fileHash": "ed411ea1",
+      "needsInterop": true
+    },
+    "diod": {
+      "src": "../../../../node_modules/diod/lib/diod.es.js",
+      "file": "diod.js",
+      "fileHash": "2f758088",
+      "needsInterop": false
+    }
+  },
+  "chunks": {}
+}
