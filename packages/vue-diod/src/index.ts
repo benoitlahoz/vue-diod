@@ -15,7 +15,7 @@ const plugin = {
 
     buildContainer(app, config);
 
-    // TODO: Components and directives
+    // TODO: Components and directives (mixins?).
   },
 };
 
