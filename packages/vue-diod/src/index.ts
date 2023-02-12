@@ -15,7 +15,7 @@ const plugin = {
 
     buildContainer(app, config);
 
-    // TODO: Components and all
+    // TODO: Components and directives
   },
 };
 
