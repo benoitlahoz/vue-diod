@@ -17,8 +17,14 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
+      output: {
+        exports: 'named',
+        globals: { diod: 'diod' },
+      },
+      external: ['vue', 'diod', 'reflect-metadata'],
       plugins: [
         swc({
+          minify: true,
           jsc: {
             parser: {
               syntax: 'typescript',
@@ -26,6 +32,12 @@ export default defineConfig({
               decorators: true,
             },
             target: 'es2021',
+            minify: {
+              compress: {
+                unused: true,
+              },
+              mangle: true,
+            },
             transform: {
               decoratorMetadata: true,
             },

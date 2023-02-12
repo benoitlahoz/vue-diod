@@ -1,74 +1,29 @@
-<script setup lang="ts">
-  import type { InjectionKey } from 'vue';
-  import { ref, inject, watch } from 'vue';
-
-  // Dependency injection.
-  import { AbstractCounter, AbstractLogger } from '../modules';
-
-  defineProps<{ msg: string }>();
-
-  // Current count value.
-
-  const count = ref(0);
-
-  // Inject logger and counter.
-
-  const LoggerKey = AbstractLogger as unknown;
-  const CounterKey = AbstractCounter as unknown;
-
-  const logger = inject(LoggerKey as InjectionKey<AbstractLogger>);
-  const counter = inject(CounterKey as InjectionKey<AbstractCounter>);
-
-  // Assign the injected class's increment method to local increment
-  // function or fallback.
-
-  const increment = counter ? counter.increment : (value: number) => value;
-  const log = logger ? logger.log : (...args: any[]) => console.log(...args);
-
-  watch(
-    () => count.value,
-    () => {
-      // Use injected logger.
-
-      log('Logger in component: \tCount value is %d', count.value);
-    }
-  );
-</script>
-
 <template>
-  <h1>{{ msg }}</h1>
-
-  <div class="card">
-    <button
-      type="button"
-      @click="count = increment(count)"
-    >
-      count is {{ count }}
-    </button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
+  <div class="header">
+    <div class="title">Vue Diod</div>
+    <div class="subtitle">Dependency injection in Vue.js</div>
   </div>
 
-  <p>
-    Check out
-    <a
-      href="https://vuejs.org/guide/quick-start.html#local"
-      target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Install
-    <a
-      href="https://github.com/johnsoncodehk/volar"
-      target="_blank"
-      >Volar</a
-    >
-    in your IDE for a better DX
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+  <div class="card">
+    <div style="display: flex; align-items: center; justify-content: center">
+      <button
+        type="button"
+        @click="count = decrement(count)"
+      >
+        -
+      </button>
+      <div style="width: 200px; margin: 0 0.5rem; text-align: center">
+        count is
+        <span style="font-weight: bold">{{ count }}</span>
+      </div>
+      <button
+        type="button"
+        @click="count = increment(count)"
+      >
+        +
+      </button>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -76,3 +31,56 @@
     color: #888;
   }
 </style>
+<script setup lang="ts">
+  import type { InjectionKey } from 'vue';
+  import { ref, inject, watch } from 'vue';
+  import { useDiod } from 'vue-diod';
+  import { AbstractCounter, AbstractLogger } from '../modules';
+
+  // Current count value.
+  const count = ref(0);
+
+  // Imports VueDiod helper.
+  const diod = useDiod();
+
+  // Inject counter with fallback, by the abstract class
+  // it implements, without helper.
+  const CounterKey = AbstractCounter as unknown;
+  const counter = inject<() => AbstractCounter>(
+    CounterKey as InjectionKey<AbstractCounter>,
+    () => {
+      return {
+        increment: (value: number) => value + 5,
+        decrement: (value: number) => value - 5,
+      };
+    }
+  )();
+
+  // Use VueDiod helper to get typesafe injection key.
+  const logger = inject<() => AbstractLogger>(
+    diod.injectionKeyForClass(AbstractLogger),
+
+    // Fallback to console.
+
+    () => {
+      return {
+        log: console.log,
+        info: console.log,
+        warn: console.warn,
+        error: console.error,
+      };
+    }
+  )();
+
+  const increment = counter.increment;
+  const decrement = counter.decrement;
+
+  watch(
+    () => count.value,
+    () => {
+      // Use injected logger.
+
+      logger.log('In Vue: Count value is %d', count.value);
+    }
+  );
+</script>
