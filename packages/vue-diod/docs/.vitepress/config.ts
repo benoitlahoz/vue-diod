@@ -3,6 +3,7 @@
 export default {
   title: 'Vue Diod',
   description: 'Dependency injection in Vue.js.',
+  base: '/vue-diod/',
   // cleanUrls: true,
   themeConfig: {
     // logo: '/assets/logo_vuoz@512px.png',
