@@ -12,7 +12,7 @@ Read the **DIOD** documentation on [Github](https://github.com/artberri/diod/blo
 
 **DIOD** provides a way to register our implementations and their dependencies
 and find them back by passing the abstractioon they implement as key.
-We'll see here how to configure container with VueDiod for an usage in Vue 3.
+We'll see here how to configure container with Vue DIOD for an usage in Vue 3.
 
 ## Abstractions
 
@@ -71,7 +71,7 @@ export class CounterByFive implements AbstractCounter {
 ## Binding in DIOD
 
 At this point we can bind our chosen implementation to its abstraction,
-in order to be able to retrieve it only with the abstraction key.
+and later get an instance with this abstraction as key.
 
 **DIOD** offers the following for registering our dependencies:
 
@@ -117,10 +117,10 @@ const counter = container.get(AbstractCounter);
 The same abstraction would then return a different implementation,
 here `CounterByFive`
 
-## VueDiod
+## Vue DIOD
 
-VueDiod wraps DIOD bootstrap and methods, and allows components to get instances
-_via_ the Vue's `inject` method. Once VueDiod is configured and `use`d by the
+Vue DIOD wraps DIOD bootstrap and methods, and allows components to get instances
+_via_ the Vue's `inject` method. Once Vue DIOD is configured and `use`d by the
 application, we can inject the function that will create an instance of our
 service. The return type of `inject([MY_KEY])` is a function that returns the
 actual instance of the service.
@@ -130,32 +130,10 @@ const getter = inject(AbstractClass);
 const instance = getter();
 ```
 
-To register globally our dependencies, we can `use` VueDiod as a plugin in
+To register globally our dependencies, we can `use(VueDiod, config)` as a plugin in
 the `main.ts` file, and pass the bindings through the configuration object.
 
-```typescript
-import 'reflect-metadata';
-
-import { createApp } from 'vue';
-import VueDiod from 'vue-diod';
-
-import { AbstractCounter } from './counter.abstract';
-import { CounterByOne } from './counter-by-one.service';
-
-import App from './App.vue';
-
-const app = createApp(App);
-app.use(VueDiod, {
-  injectables: [
-    {
-      register: AbstractCounter,
-      use: CounterByOne,
-    },
-  ],
-});
-
-app.mount('#app');
-```
+<!--@include: ../snippets/simple-counter.example.md-->
 
 ## Inject in components
 
@@ -171,7 +149,7 @@ import { AbstractCounter } from '@/domain/counter.abstract';
 const CounterKey = AbstractCounter as unknown;
 const counter = inject<() => AbstractCounter>(CounterKey as InjectionKey<AbstractCounter>)();
 
-// OR: Use VueDiod helper to get type.
+// OR: Use Vue DIOD helper to get type.
 import { useDiod } from 'vue-diod';
 const diod = useDiod();
 
@@ -194,8 +172,8 @@ const counter = inject<() => AbstractCounter>(
 
 // Bind to component's methods.
 
-const increment = counter.increment;
-const decrement = counter.decrement;
+const increment = counter.increment.bind(counter);
+const decrement = counter.decrement.bind(counter);
 
 // Counter value.
 
@@ -221,10 +199,15 @@ import SimpleCounter from '../.vitepress/theme/components/simple-counter.compone
   <SimpleCounter />
 </div>
 
+::: info SEE ALSO
+[Simple counter](../examples/simple-counter.md) example for an usage
+with Vue DIOD injection helper `injectService`.
+:::
+
 :::tip
 If we want to configure a dependency in the **DIOD** container without making it
 available in Vue components, we can pass `vue: false` to the specific service
-in VueDiod configuration.
+in Vue DIOD configuration.
 
 [See configuration](configuration)
 :::

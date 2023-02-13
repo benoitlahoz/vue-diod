@@ -1,4 +1,4 @@
-import type { App } from 'vue';
+import 'reflect-metadata';
 import DefaultTheme from 'vitepress/theme';
 import VueDiod from '../../../src';
 import {
@@ -23,8 +23,6 @@ export default {
 
     // Create an instance we want to force as dependency.
 
-    const logger = new Logger();
-
     app.use(VueDiod, {
       injectables: [
         {
@@ -32,23 +30,12 @@ export default {
           use: SimpleCounter,
         },
         {
-          register: AbstractCounter,
-          use: Counter,
-          tag: 'my.group',
-          token: 'counter',
-
-          // Here we manually provide logger dependency to counter.
-
-          dependencies: [AbstractLogger],
+          register: AbstractLogger,
+          use: Logger,
         },
         {
-          register: AbstractLogger,
-
-          // Here we use our created instance, instead of passing the
-          // concrete class, like in Counter above.
-
-          useInstance: logger,
-          tag: 'my.group',
+          register: AbstractCounter,
+          use: Counter,
         },
       ],
     });

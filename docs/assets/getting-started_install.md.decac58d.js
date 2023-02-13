@@ -1,0 +1,27 @@
+import { _ as _export_sfc, o as openBlock, c as createElementBlock, b as createBaseVNode, f as createTextVNode, t as toDisplayString, g as createStaticVNode } from "./app.1154be72.js";
+const __pageData = JSON.parse('{"title":"Install","description":"","frontmatter":{"title":"Install"},"headers":[{"level":2,"title":"With npm or yarn","slug":"with-npm-or-yarn","link":"#with-npm-or-yarn","children":[]},{"level":2,"title":"Add properties to tsconfig.json","slug":"add-properties-to-tsconfig-json","link":"#add-properties-to-tsconfig-json","children":[]}],"relativePath":"getting-started/install.md"}');
+const _sfc_main = { name: "getting-started/install.md" };
+const _hoisted_1 = {
+  id: "frontmatter-title",
+  tabindex: "-1"
+};
+const _hoisted_2 = /* @__PURE__ */ createBaseVNode("a", {
+  class: "header-anchor",
+  href: "#frontmatter-title",
+  "aria-hidden": "true"
+}, "#", -1);
+const _hoisted_3 = /* @__PURE__ */ createStaticVNode('<h2 id="with-npm-or-yarn" tabindex="-1">With npm or yarn <a class="header-anchor" href="#with-npm-or-yarn" aria-hidden="true">#</a></h2><p>Considering <strong>you already have a working vue 3 project</strong>, you&#39;ll have to install Vue DIOD with its dependencies: <a href="https://www.npmjs.com/package/reflect-metadata" target="_blank" rel="noreferrer"><code>reflect-metadata</code></a> and obviously <a href="https://www.npmjs.com/package/diod" target="_blank" rel="noreferrer"><code>diod</code></a>.</p><h4 id="npm" tabindex="-1">npm <a class="header-anchor" href="#npm" aria-hidden="true">#</a></h4><div class="language-sh line-numbers-mode"><button title="Copy Code" class="copy"></button><span class="lang">sh</span><pre class="shiki material-theme-palenight" tabindex="0"><code><span class="line"><span style="color:#FFCB6B;">npm</span><span style="color:#A6ACCD;"> </span><span style="color:#C3E88D;">install</span><span style="color:#A6ACCD;"> </span><span style="color:#C3E88D;">-s</span><span style="color:#A6ACCD;"> </span><span style="color:#C3E88D;">vue-diod</span><span style="color:#A6ACCD;"> </span><span style="color:#C3E88D;">diod</span><span style="color:#A6ACCD;"> </span><span style="color:#C3E88D;">reflect-metadata</span></span>\n<span class="line"></span></code></pre><div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br></div></div><h4 id="yarn" tabindex="-1">yarn <a class="header-anchor" href="#yarn" aria-hidden="true">#</a></h4><div class="language-sh line-numbers-mode"><button title="Copy Code" class="copy"></button><span class="lang">sh</span><pre class="shiki material-theme-palenight" tabindex="0"><code><span class="line"><span style="color:#FFCB6B;">yarn</span><span style="color:#A6ACCD;"> </span><span style="color:#C3E88D;">add</span><span style="color:#A6ACCD;"> </span><span style="color:#C3E88D;">vue-diod</span><span style="color:#A6ACCD;"> </span><span style="color:#C3E88D;">diod</span><span style="color:#A6ACCD;"> </span><span style="color:#C3E88D;">reflect-metadata</span></span>\n<span class="line"></span></code></pre><div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br></div></div><h2 id="add-properties-to-tsconfig-json" tabindex="-1">Add properties to <em>tsconfig.json</em> <a class="header-anchor" href="#add-properties-to-tsconfig-json" aria-hidden="true">#</a></h2><p>Modify your <code>tsconfig.json</code>to include the following settings:</p><div class="language-json line-numbers-mode"><button title="Copy Code" class="copy"></button><span class="lang">json</span><pre class="shiki material-theme-palenight" tabindex="0"><code><span class="line"><span style="color:#89DDFF;">{</span></span>\n<span class="line"><span style="color:#A6ACCD;">  </span><span style="color:#89DDFF;">&quot;</span><span style="color:#C792EA;">compilerOptions</span><span style="color:#89DDFF;">&quot;</span><span style="color:#89DDFF;">:</span><span style="color:#A6ACCD;"> </span><span style="color:#89DDFF;">{</span></span>\n<span class="line"><span style="color:#A6ACCD;">    </span><span style="color:#89DDFF;">&quot;</span><span style="color:#FFCB6B;">experimentalDecorators</span><span style="color:#89DDFF;">&quot;</span><span style="color:#89DDFF;">:</span><span style="color:#A6ACCD;"> </span><span style="color:#89DDFF;">true,</span></span>\n<span class="line"><span style="color:#A6ACCD;">    </span><span style="color:#89DDFF;">&quot;</span><span style="color:#FFCB6B;">emitDecoratorMetadata</span><span style="color:#89DDFF;">&quot;</span><span style="color:#89DDFF;">:</span><span style="color:#A6ACCD;"> </span><span style="color:#89DDFF;">true</span></span>\n<span class="line"><span style="color:#A6ACCD;">  </span><span style="color:#89DDFF;">}</span></span>\n<span class="line"><span style="color:#89DDFF;">}</span></span>\n<span class="line"></span></code></pre><div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div>', 9);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", null, [
+    createBaseVNode("h1", _hoisted_1, [
+      createTextVNode(toDisplayString(_ctx.$frontmatter.title) + " ", 1),
+      _hoisted_2
+    ]),
+    _hoisted_3
+  ]);
+}
+const install = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
+export {
+  __pageData,
+  install as default
+};

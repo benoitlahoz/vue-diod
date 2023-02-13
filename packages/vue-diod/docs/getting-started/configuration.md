@@ -6,7 +6,7 @@ title: Configuration
 
 ## Plugin
 
-When we want to use VueDiod globally with Vue's `use`, we have to pass
+When we want to use Vue DIOD globally with Vue's `use`, we have to pass
 it a configuration object with the following properties.
 
 | Property        |            Type            | Usage                                              | Required |     Default |

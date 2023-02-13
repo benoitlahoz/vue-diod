@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: Vue Diod
+  name: Vue DIOD
   text: Dependency injection in Vue 3.
   tagline: Made possible thanks to DIOD library.
   actions:

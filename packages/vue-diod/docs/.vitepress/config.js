@@ -1,8 +1,9 @@
 // import { getSideBar } from 'vitepress-plugin-autobar';
 import { resolve } from 'path';
+import swc from 'rollup-plugin-swc3';
 
 export default {
-  title: 'Vue Diod',
+  title: 'Vue DIOD',
   description: 'Dependency injection in Vue.js.',
   /*
   head: [
@@ -13,6 +14,15 @@ export default {
     ],
   ],
   */
+  head: [
+    [
+      'script',
+      {
+        type: 'module',
+        content: `import 'reflect-metadata';`,
+      },
+    ],
+  ],
   base: '/vue-diod/',
   outDir: resolve(__dirname, '../../../../docs'),
   cleanUrls: true,
@@ -42,6 +52,10 @@ export default {
             text: 'Simple Counter',
             link: '/examples/simple-counter',
           },
+          {
+            text: 'Custom Logger',
+            link: '/examples/custom-logger',
+          },
         ],
       },
       /*
@@ -64,5 +78,23 @@ export default {
   markdown: {
     lineNumbers: true,
     toc: { level: [1, 2] },
+  },
+  vite: {
+    plugins: [
+      swc({
+        jsc: {
+          parser: {
+            syntax: 'typescript',
+            dynamicImport: true,
+            decorators: true,
+          },
+          target: 'es2021',
+          transform: {
+            decoratorMetadata: true,
+          },
+        },
+      }),
+    ],
+    esbuild: false,
   },
 };
