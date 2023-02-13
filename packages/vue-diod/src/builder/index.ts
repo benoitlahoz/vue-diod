@@ -1,4 +1,4 @@
-import type { App, InjectionKey } from 'vue';
+import type { App, Component, InjectionKey } from 'vue';
 import type { Container, Abstract, ConfigurableRegistration } from 'diod';
 import { VueDiodConfiguration, VueDiodScope } from '../types';
 import { ContainerBuilder } from 'diod';
@@ -24,7 +24,11 @@ export class VueDiodBuilder {
    * @param { Array<VueDiodInjectable> } services An array of objects that
    * contain both the abstraction to register and the concrete class associated.
    */
-  public bootstrap(app: App, config: VueDiodConfiguration): void {
+  public bootstrap<T extends Component>(
+    // See: https://stackoverflow.com/a/74472058
+    target: App | (T extends Component<infer P> ? Partial<P> : never),
+    config: VueDiodConfiguration
+  ): void {
     /***************************************************************************
      *
      * First pass: Register all abstractions in DIOD
@@ -141,7 +145,7 @@ export class VueDiodBuilder {
 
         const Key = service.register as unknown;
 
-        app.provide(Key as InjectionKey<Abstract<typeof Key>>, () =>
+        target.provide(Key as InjectionKey<Abstract<typeof Key>>, () =>
           this._container!.get(service.register)
         );
 
@@ -152,7 +156,7 @@ export class VueDiodBuilder {
           // Dependency can be found by the abstract class's name.
 
           Token = service.register.name;
-          app.provide(Token, () => this._container!.get(service.register));
+          target.provide(Token, () => this._container!.get(service.register));
         } else if (
           // Dependency can be found by the given string or symbol.
 
@@ -160,7 +164,7 @@ export class VueDiodBuilder {
           typeof service.token === 'symbol'
         ) {
           Token = service.token;
-          app.provide(Token, () => this._container!.get(service.register));
+          target.provide(Token, () => this._container!.get(service.register));
         }
 
         // If tag property is set, provides also the key
@@ -169,10 +173,12 @@ export class VueDiodBuilder {
         if (service.tag && !tags.includes(service.tag)) {
           const tag = service.tag;
 
-          app.provide(`${config.tagPrefix || DEFAULT_TAG_PREFIX}:${tag}`, () =>
-            this._container!.findTaggedServiceIdentifiers<any>(tag).map(
-              (identifier) => this._container!.get(identifier)
-            )
+          target.provide(
+            `${config.tagPrefix || DEFAULT_TAG_PREFIX}:${tag}`,
+            () =>
+              this._container!.findTaggedServiceIdentifiers<any>(tag).map(
+                (identifier) => this._container!.get(identifier)
+              )
           );
 
           // Keep tag in cache to provide it only once.
