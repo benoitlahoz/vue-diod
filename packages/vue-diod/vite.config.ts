@@ -19,7 +19,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         exports: 'named',
-        globals: { diod: 'diod' },
+        globals: { vue: 'vue', diod: 'diod' },
       },
       external: ['vue', 'diod', 'reflect-metadata'],
       plugins: [
