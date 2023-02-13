@@ -4,9 +4,16 @@ import { resolve } from 'path';
 export default {
   title: 'Vue Diod',
   description: 'Dependency injection in Vue.js.',
+  head: [
+    [
+      // See: https://stackoverflow.com/a/75119417
+      'meta',
+      { 'http-equiv': 'Permissions-Policy', content: 'interest-cohort=()' },
+    ],
+  ],
   base: '/vue-diod/',
   outDir: resolve(__dirname, '../../../../docs'),
-  // cleanUrls: true,
+  cleanUrls: true,
   themeConfig: {
     // logo: '/assets/logo_vuoz@512px.png',
     // ...
