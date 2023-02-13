@@ -7,7 +7,7 @@ import type {
   VueDiodScope,
 } from './types';
 import { VueDiodBuilder } from './builder';
-import { VueDiodHelper } from './helpers/vue-diod-helper';
+import { VueDiodHelper } from './helpers/vue-diod-private-helper';
 
 const plugin = {
   install(app: App, config: VueDiodConfiguration) {

@@ -1,36 +1,34 @@
 import type { InjectionKey } from 'vue';
-import type { Container } from 'diod';
+import type { Container, Abstract, Newable } from 'diod';
 import { inject } from 'vue';
-import { VueDiodHelper } from './vue-diod-helper';
+import { VueDiodHelper } from './vue-diod-private-helper';
 
-export const useDiod = () => {
+export const useVueDiod = () => {
   /**
    * Injects a new instance associated with passed abstract class (key),
-   * by calling 'get' on the passed container or, if undefined, on the default
-   * VueDiod plugin's global container.
+   * by calling the function that was injected in Vue.js. Under the hood,
+   * the injected function is calling get on the container the abstract class
+   * was registered in.
    *
-   * @param { InjectionKey<T> } key The key our service is
-   * bound to.
-   * @param { Container | undefined } container The container we want to ask
-   * an instance from. If undefoned, will ask to the default VueDiod plugin
-   * global container.
+   * @param { Abstract<T> || Newable<T> } key The key our service is bound to.
+   * @param { Function | undefined } fallback An optional fallback to return
+   * if the key wasn't found.
    *
    * @returns { T | undefined } An instance of the bound service or
    * undefined if it was not added at bootstrap.
    */
   const injectService = <T>(
-    key: InjectionKey<T>,
-    container?: Container
+    key: Abstract<T> | Newable<T>,
+    fallback?: () => T
   ): T | undefined => {
-    const ctr = container ?? getDefaultContainer();
+    // Gets the function for the abstract class.
 
-    if (ctr) {
-      const injectedFn = inject<() => T>(injectionKeyForClass(key));
-      if (injectedFn) {
-        return <T>injectedFn() || undefined;
-      }
-    }
-    return;
+    const injectedFn = inject<() => T | undefined>(
+      injectionKeyForClass(key),
+      fallback ? fallback : () => undefined
+    );
+
+    return <T | undefined>injectedFn();
   };
 
   /**

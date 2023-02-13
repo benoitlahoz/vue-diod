@@ -1,1 +1,1 @@
-export * from './use-diod';
+export * from './use-vue-diod';
