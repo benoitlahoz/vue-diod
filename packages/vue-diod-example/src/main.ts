@@ -16,21 +16,21 @@ app.use(VueDiod, {
     {
       register: AbstractCounter,
       use: Counter,
-      tag: 'my.group',
-      token: 'counter',
+      // tag: 'my.group',
+      // token: 'counter',
 
       // Here we provide logger dependency to counter.
 
-      dependencies: [AbstractLogger],
+      // dependencies: [AbstractLogger],
     },
     {
       register: AbstractLogger,
 
       // Here we use our created instance, instead of passing the
       // concrete class, like in Counter above.
-
-      useInstance: logger,
-      tag: 'my.group',
+      use: Logger,
+      // useInstance: logger,
+      // tag: 'my.group',
     },
   ],
 });

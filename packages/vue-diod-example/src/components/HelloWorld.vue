@@ -34,14 +34,14 @@
 <script setup lang="ts">
   import type { InjectionKey } from 'vue';
   import { ref, inject, watch } from 'vue';
-  import { useDiod } from 'vue-diod';
+  import { useVueDiod } from 'vue-diod';
   import { AbstractCounter, AbstractLogger } from '../modules';
 
   // Current count value.
   const count = ref(0);
 
   // Imports VueDiod helper.
-  const diod = useDiod();
+  const diod = useVueDiod();
 
   // Inject counter with fallback, by the abstract class
   // it implements, without helper.
