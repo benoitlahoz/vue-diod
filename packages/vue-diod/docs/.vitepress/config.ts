@@ -48,23 +48,24 @@ export default {
             text: 'Custom Logger',
             link: '/examples/custom-logger',
           },
+          {
+            text: 'Parent → Child',
+            link: '/examples/provider-component',
+          },
         ],
       },
-      /*
+    ],
+    nav: [
       {
-        text: 'Resources',
-        items: [
-          {
-            text: 'View on Github',
-            link: 'https://github.com/benoitlahoz/vue-diod',
-          },
-          {
-            text: 'DIOD on Github',
-            link: 'https://github.com/artberri/diod',
-          },
-        ],
+        text: 'DIOD on GitHub',
+        link: 'https://github.com/artberri/diod#diod---dependency-injection-on-demand',
       },
-      */
+    ],
+    socialLinks: [
+      {
+        icon: 'github',
+        link: 'https://github.com/benoitlahoz/vue-diod',
+      },
     ],
   },
   markdown: {

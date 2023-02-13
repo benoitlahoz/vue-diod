@@ -4,9 +4,9 @@ title: Install
 
 # {{ $frontmatter.title }}
 
-## With npm or yarn
+## Install dependencies
 
-Considering **you already have a working vue 3 project**, you'll have
+Considering **you already have a working [Vue 3](https://vuejs.org/) project**, you'll have
 to install Vue DIOD with its dependencies:
 [`reflect-metadata`](https://www.npmjs.com/package/reflect-metadata)
 and obviously [`diod`](https://www.npmjs.com/package/diod).
@@ -23,7 +23,7 @@ npm install -s vue-diod diod reflect-metadata
 yarn add vue-diod diod reflect-metadata
 ```
 
-## Add properties to _tsconfig.json_
+## Typescript configuration
 
 Modify your `tsconfig.json`to include the following settings:
 
@@ -36,9 +36,9 @@ Modify your `tsconfig.json`to include the following settings:
 }
 ```
 
-## Configure Vite
+## Vite configuration
 
-As stated in the Vite issues
+As stated in the Vite GitHub issues
 ([here](https://github.com/evanw/esbuild/issues/257#issuecomment-658053616)):
 
 > The emitDecoratorMetadata flag is intentionally not supported.
@@ -48,7 +48,15 @@ to the
 [`rollup-plugin-swc3`](https://www.npmjs.com/package/rollup-plugin-swc3/v/0.3.0)
 package.
 
-In your `vite.config.ts` file, simply add:
+```sh
+npm install --save-dev @swc/core rollup-plugin-swc3
+
+# OR
+
+yarn add -D @swc/core rollup-plugin-swc3
+```
+
+Then, in our `vite.config.js` or `vite.config.ts` file, we simply have to add:
 
 ```typescript
 import { defineConfig } from 'vite';

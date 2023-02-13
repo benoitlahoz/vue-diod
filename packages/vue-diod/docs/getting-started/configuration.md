@@ -16,8 +16,9 @@ it a configuration object with the following properties.
 | **tagPrefix**   |           string           | The prefix used to get tagged dependencies         |  false   |     `'tag'` |
 | **vue**         |          boolean           | Inject classes in Vue.js via the `provide` method. |  false   |      `true` |
 
-::: info DIOD
-The `vue` plugin option is provided as a helper. In the case we pass it `false` we could simply use **DIOD**.
+::: info NOTA BENE
+The `vue` plugin option is provided as a helper.
+In the case we'd pass `false` we could simply use **DIOD** directly.
 :::
 
 ## Injectables

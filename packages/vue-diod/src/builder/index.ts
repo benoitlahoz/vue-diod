@@ -1,4 +1,4 @@
-import type { App, Component, InjectionKey } from 'vue';
+import type { App, ComponentInternalInstance, InjectionKey } from 'vue';
 import type { Container, Abstract, ConfigurableRegistration } from 'diod';
 import { VueDiodConfiguration, VueDiodScope } from '../types';
 import { ContainerBuilder } from 'diod';
@@ -21,14 +21,18 @@ export class VueDiodBuilder {
   /**
    * Registers and use the couples abstraction / implementation to be injected.
    *
-   * @param { Array<VueDiodInjectable> } services An array of objects that
-   * contain both the abstraction to register and the concrete class associated.
+   * @param { App | (T extends Component<infer P> ? Partial<P> : never) }
+   * The application or component to inject the dependencies in.
+   * @param { VueDiodConfiguration } config The VueDiod configuration object,
+   * with the mandatory entry 'injectables'.
    */
-  public bootstrap<T extends Component>(
+  public bootstrap(
     // See: https://stackoverflow.com/a/74472058
-    target: App | (T extends Component<infer P> ? Partial<P> : never),
+
+    target: App | ComponentInternalInstance | undefined | null,
     config: VueDiodConfiguration
   ): void {
+    if (!target) throw new Error(`'target' must be defined.`);
     /***************************************************************************
      *
      * First pass: Register all abstractions in DIOD
@@ -119,74 +123,125 @@ export class VueDiodBuilder {
 
     /***************************************************************************
      *
-     * Second pass: Configure Vue.js application providers.
+     * Second pass: Configure Vue.js providers.
      *
      **************************************************************************/
-
-    // Keep a cache of already set tags.
-
-    const tags: Array<string> = [];
 
     // Global configuration for vue injection.
 
     const globalVue = config.vue || true;
 
     if (globalVue) {
-      // Inject all services in Vue application via their abstraction class name.
+      if ((target as App).provide) {
+        // 'target' exposes 'provide' method.
 
-      for (const service of config.injectables) {
-        let vue = service.vue || true;
+        this._provide(target as App, config);
+      } else if (
+        (target as ComponentInternalInstance).vnode &&
+        (target as ComponentInternalInstance).vnode.component
+      ) {
+        // 'target' doesn't expose 'provide' method
+        // but has 'vnode' and 'component'.
 
-        if (!vue) continue; // Skips Vue.js injection.
-
-        if (service.private) continue; // Don't inject private services.
-
-        // By default provide the abstract class itself as InjectionKey.
-
-        const Key = service.register as unknown;
-
-        target.provide(Key as InjectionKey<Abstract<typeof Key>>, () =>
-          this._container!.get(service.register)
+        this._provideComponent(target as ComponentInternalInstance, config);
+      } else {
+        throw new Error(
+          `'target' is neither an application object nor a component.`
         );
-
-        // If token is set, register the injection for token name too.
-
-        let Token;
-        if (typeof service.token === 'boolean') {
-          // Dependency can be found by the abstract class's name.
-
-          Token = service.register.name;
-          target.provide(Token, () => this._container!.get(service.register));
-        } else if (
-          // Dependency can be found by the given string or symbol.
-
-          typeof service.token === 'string' ||
-          typeof service.token === 'symbol'
-        ) {
-          Token = service.token;
-          target.provide(Token, () => this._container!.get(service.register));
-        }
-
-        // If tag property is set, provides also the key
-        // '[tagPrefix]:${actual tag}' to find tagged services.
-
-        if (service.tag && !tags.includes(service.tag)) {
-          const tag = service.tag;
-
-          target.provide(
-            `${config.tagPrefix || DEFAULT_TAG_PREFIX}:${tag}`,
-            () =>
-              this._container!.findTaggedServiceIdentifiers<any>(tag).map(
-                (identifier) => this._container!.get(identifier)
-              )
-          );
-
-          // Keep tag in cache to provide it only once.
-
-          tags.push(tag);
-        }
       }
     }
+  }
+
+  /**
+   *
+   * @param target
+   * @param config
+   */
+  private _provide(target: any, config: VueDiodConfiguration): void {
+    // Keep a cache of already set tags.
+
+    const tags: Array<string> = [];
+
+    // Inject all services in Vue application via their abstraction class name.
+
+    for (const service of config.injectables) {
+      let vue = service.vue || true;
+
+      if (!vue) continue; // Skips Vue.js injection.
+
+      if (service.private) continue; // Don't inject private services.
+
+      // By default provide the abstract class itself as InjectionKey.
+
+      const Key = service.register as unknown;
+
+      target.provide(Key as InjectionKey<Abstract<typeof Key>>, () =>
+        this._container!.get(service.register)
+      );
+
+      // If token is set, register the injection for token name too.
+
+      let Token;
+      if (typeof service.token === 'boolean') {
+        // Dependency can be found by the abstract class's name.
+
+        Token = service.register.name;
+        target.provide(Token, () => this._container!.get(service.register));
+      } else if (
+        // Dependency can be found by the given string or symbol.
+
+        typeof service.token === 'string' ||
+        typeof service.token === 'symbol'
+      ) {
+        Token = service.token;
+        target.provide(Token, () => this._container!.get(service.register));
+      }
+
+      // If tag property is set, provides also the key
+      // '[tagPrefix]:${actual tag}' to find tagged services.
+
+      if (service.tag && !tags.includes(service.tag)) {
+        const tag = service.tag;
+
+        target.provide(`${config.tagPrefix || DEFAULT_TAG_PREFIX}:${tag}`, () =>
+          this._container!.findTaggedServiceIdentifiers<any>(tag).map(
+            (identifier) => this._container!.get(identifier)
+          )
+        );
+
+        // Keep tag in cache to provide it only once.
+
+        tags.push(tag);
+      }
+    }
+  }
+
+  /**
+   * Prepares component by adding a custom 'provide' method, then calls the
+   * private method '_provide'.
+   *
+   * @param { T extends Component<infer P> ? Partial<P> : never }
+   * The component to inject the dependencies in.
+   * @param { VueDiodConfiguration } config The VueDiod configuration object,
+   * with the mandatory entry 'injectables'.
+   */
+  private _provideComponent(
+    target: ComponentInternalInstance,
+    config: VueDiodConfiguration
+  ): void {
+    const component = target.vnode.component as any;
+
+    component.provide = (
+      key: string | InjectionKey<() => unknown>,
+      value: () => unknown
+    ) => {
+      component.provides = {
+        ...(component.provides || {}),
+        [key as any]: value,
+      };
+    };
+
+    this._provide(component, config);
   }
 
   /**

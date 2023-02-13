@@ -1,7 +1,10 @@
 import type { InjectionKey } from 'vue';
 import type { Container, Abstract, Newable } from 'diod';
-import { inject } from 'vue';
+import type { VueDiodInjectable } from '../types';
+
+import { inject, provide, getCurrentInstance } from 'vue';
 import { VueDiodHelper } from './vue-diod-private-helper';
+import { VueDiodBuilder } from '../builder';
 
 export const useVueDiod = () => {
   /**
