@@ -8,28 +8,28 @@ export class Logger implements AbstractLogger {
 
   public log(...args: any[]): void {
     console.log(
-      `\x1b[40m\x1b[1m LOG \x1b[0m ${args[0]}`,
+      `\x1b[40m\x1b[1m LOG \x1b[0m  ${args[0]}`,
       ...args.slice(1, args.length)
     );
   }
 
   public info(...args: any[]): void {
-    console.log(
+    console.trace(
       `\x1b[44m\x1b[1m\x1b[30m INFO \x1b[0m ${args[0]}`,
       ...args.slice(1, args.length)
     );
   }
 
   public warn(...args: any[]): void {
-    console.log(
+    console.warn(
       `\x1b[1m\x1b[43m\x1b[30m WARN \x1b[0m ${args[0]}`,
       ...args.slice(1, args.length)
     );
   }
 
   public error(...args: any[]): void {
-    console.log(
-      `\x1b[41m\x1b[1m\x1b[30m ERR \x1b[0m ${args[0]}`,
+    console.error(
+      `\x1b[41m\x1b[1m\x1b[30m ERR \x1b[0m  ${args[0]}`,
       ...args.slice(1, args.length)
     );
   }

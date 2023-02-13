@@ -15,7 +15,8 @@ The counter abstract class.
 :::info NOTA BENE
 This is the same abstraction used in the
 [Simple Counter](simple-counter.md) example.
-We will provide a new implementation, including the logger as dependency.
+We will now provide a new implementation, with the abstract logger
+as dependency.
 :::
 
 ```typescript

@@ -73,6 +73,7 @@ export default {
   },
   vite: {
     plugins: [
+      // For SWC to work on vitepress itself.
       ts(),
       swc({
         minify: true,
