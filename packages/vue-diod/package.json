@@ -45,7 +45,7 @@
     "build": "vue-tsc && vite build",
     "dev": "yarn build && yarn example",
     "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
+    "docs:build": "rimraf ../../docs && sh ./build-docs.sh",
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {

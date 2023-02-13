@@ -2,9 +2,9 @@
 
 set -e
 
-yarn docs:build
+vitepress build docs
 
-cd docs/.vitepress/dist
+cd ../../docs
 
 touch .nojekyll
 
