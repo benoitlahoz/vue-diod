@@ -22,6 +22,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "docs/.vitepress/**/*.ts",
+    "docs/.vitepress/**/*.vue",
     "vite.config.ts"
   ]
 }

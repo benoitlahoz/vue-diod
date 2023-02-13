@@ -1,6 +1,7 @@
 // import { getSideBar } from 'vitepress-plugin-autobar';
 import { resolve } from 'path';
 import swc from 'rollup-plugin-swc3';
+import ts from 'vite-plugin-ts';
 
 export default {
   title: 'Vue DIOD',
@@ -14,15 +15,6 @@ export default {
     ],
   ],
   */
-  head: [
-    [
-      'script',
-      {
-        type: 'module',
-        content: `import 'reflect-metadata';`,
-      },
-    ],
-  ],
   base: '/vue-diod/',
   outDir: resolve(__dirname, '../../../../docs'),
   cleanUrls: true,
@@ -81,7 +73,9 @@ export default {
   },
   vite: {
     plugins: [
+      ts(),
       swc({
+        minify: true,
         jsc: {
           parser: {
             syntax: 'typescript',
@@ -89,6 +83,12 @@ export default {
             decorators: true,
           },
           target: 'es2021',
+          minify: {
+            compress: {
+              unused: true,
+            },
+            mangle: true,
+          },
           transform: {
             decoratorMetadata: true,
           },
