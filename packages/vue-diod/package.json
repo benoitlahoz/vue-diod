@@ -1,7 +1,7 @@
 {
   "name": "vue-diod",
-  "private": true,
-  "version": "0.0.7",
+  "private": false,
+  "version": "0.0.8",
   "license": "MIT",
   "author": {
     "name": "Benoît LAHOZ",
@@ -44,6 +44,7 @@
   "scripts": {
     "build": "vite build",
     "dev": "yarn build && yarn example",
+    "publish": "yarn build && yarn publish",
     "docs:dev": "vitepress dev docs",
     "docs:build": "rimraf ../../docs && sh ./build-docs.sh",
     "docs:preview": "vitepress preview docs"

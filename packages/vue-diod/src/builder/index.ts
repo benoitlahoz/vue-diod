@@ -144,11 +144,14 @@ export class VueDiodBuilder {
         // but has 'vnode' and 'component'.
 
         this._provideComponent(target as ComponentInternalInstance, config);
-      } else {
+      }
+      /*
+      else {
         throw new Error(
           `'target' is neither an application object nor a component.`
         );
       }
+      */
     }
   }
 
