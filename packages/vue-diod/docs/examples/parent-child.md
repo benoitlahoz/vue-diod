@@ -177,7 +177,7 @@ be passed.
 <script setup lang="ts">
   import { ref } from 'vue';
   import { useVueDiod } from 'vue-diod';
-  import { AbstractMeal } from '../modules';
+  import { AbstractMeal } from './abstract-meal';
 
   const { injectServiceInstance } = useVueDiod();
 
@@ -338,5 +338,5 @@ import ProviderComponent from '../.vitepress/theme/components/provider.component
 
 ::: info NOTA BENE
 Minified versions of our abstract and concrete classes can be found, even
-if their name change at compilation.
+if their name has changed at compile time.
 :::

@@ -37,11 +37,17 @@ The `injectables` property is an `Array` of `VueDiodInjectable` objects.
 | ------- | :-------------------------------------------------------------------------------- | :---------: |
 | boolean | Set the service as private, so user **can't** get it directly from the container. | `undefined` |
 
-#### register <badge type="danger" text="required" />
+#### register <badge type="warning" text="one of" />
 
 | Type                                      | Usage                                                      |   Default   |
 | ----------------------------------------- | :--------------------------------------------------------- | :---------: |
 | Newable\<unknown\> \| Abstract\<unknown\> | Register the abstract / concrete class as a dependency key | `undefined` |
+
+#### registerAndUse <badge type="warning" text="one of" />
+
+| Type               | Usage                                                |   Default   |
+| ------------------ | :--------------------------------------------------- | :---------: |
+| Newable\<unknown\> | An alias for `{ register: Concrete, use: Concrete }` | `undefined` |
 
 #### scope <badge type="info" text="optional" />
 
@@ -86,12 +92,14 @@ The `injectables` property is an `Array` of `VueDiodInjectable` objects.
 | boolean | Inject the dependencies with Vue.js `provide`. | `true`  |
 
 ::: warning ONE OF
-`use`, `useInstance`and `useFactory`are mutually exclusive.
+`registerAndUse`, `use`, `useInstance`and `useFactory`are mutually exclusive.
 Their presence is checked in this order:
 
 - `use`
 - `useFactory`
 - `useInstance`
+
+If `registerAndUse` is present, `register` will not be read.
 
 :::
 

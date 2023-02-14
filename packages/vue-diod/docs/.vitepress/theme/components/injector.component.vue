@@ -3,7 +3,7 @@
   import { AbstractMeal } from '../modules';
   import { useVueDiod } from '../../../../src';
 
-  const { injectServiceInstance } = useVueDiod();
+  const { injectServiceInstance, isProvided } = useVueDiod();
 
   const key = ref(AbstractMeal);
   const injected = injectServiceInstance(AbstractMeal);

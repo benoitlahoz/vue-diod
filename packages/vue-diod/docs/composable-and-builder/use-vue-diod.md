@@ -155,7 +155,7 @@ if (isRegistered(AbstractCounter)) {
 // ...
 ```
 
-### On local (component) builder.
+### On local (component / composable) builder.
 
 If we created a builder at component level (i.e. to provide dependencies to
 component's children only), we'll have to pass the builder to the function.
@@ -166,25 +166,28 @@ For the time being, the only ways to have access to a parent's builder are:
   components to their parent.
 - Providing it via Vue's `provide` with an unique key.
 
+The `isRegistered` function, in this case, is mostly a way to check if the class
+was actually registered just after builder's bootstrap. It can also be used
+in a custom composable or in a state manager (Vuex, Pinia, ...) by passing the
+Vue.js application as target (`self` below).
+
 ```typescript
 const { isRegistered } = useVueDiod();
 
-const builder = /* TODO: get a parent builder */
+const self = getCurrentInstance();
 
-let counter;
+const builder = new VueDiodBuilder();
+builder.bootstrap(self, {
+  register: AbstractCounter,
+  use: Counter,
+});
 
 if (isRegistered(AbstractCounter, builder)) {
-  counter = inject(AbstractCounter);
+  console.log(`${AbstractCounter} was successfully registered.`);
 }
 
 // ...
 ```
-
-::: danger TODO
-Register builders created at component level and find a way to get them by
-caching in a `Map` and recursively checking component's parents and registered
-classes _via_ the components' `vnode.component.provides` property.
-:::
 
 ### Types
 
@@ -192,15 +195,73 @@ classes _via_ the components' `vnode.component.provides` property.
 isRegistered: <T>(identifier: Abstract<T> | Newable<T>) => boolean;
 ```
 
+## isProvided
+
+The `isProvided` helper is more interesting. It will check if the class as key
+is provided by:
+
+1. The component itself (i.e. its parent).
+2. The application (i.e. it was registered at application bootstrap).
+
+```typescript
+const { isProvided } = useVueDiod();
+
+// If we take this documentation example components, it will return 'true':
+// 'AbstractCounter' was provided on application bootstrap.
+
+const counterProvided = isProvided(AbstractCounter);
+
+// If we look at the 'parent->child' example, this will return true if
+// we call it from the child component (injector), but false is called
+// from outside the parent component (provider) children tree.
+const mealProvided = isProvided(AbstractMeal);
+
+if (counterProvided && mealProvided) {
+  // Super-extra stuff...
+}
+```
+
+### Types
+
+```typescript
+isProvided: <T>(identifier: Abstract<T> | Newable<T>) => boolean;
+```
+
+## getDefaultBuilder
+
+If we have the use of native DIOD's builder, we can get it with
+`useVueDiod` method `getDefaultBuilder`. This method is mainly provided
+to handle eventual DIOD functionalities changes.
+
+```typescript
+const { getDefaultBuilder } = useVueDiod();
+
+const builder = getDefaultBuilder();
+
+const isRegistered = builder.isRegistered(AbstractCounter);
+
+if (isRegistered) {
+  // Some cool stuff...
+}
+```
+
+### Types
+
+```typescript
+getDefaultBuilder: () => ContainerBuilder | undefined;
+```
+
 ## getDefaultContainer
 
-If we have the use to manage with native DIOD's container, we can get it with
-`useVueDiod` method `getDefaultContainer`.
+If we have the use of native DIOD's container, we can get it with
+`useVueDiod` method `getDefaultContainer`. This method is mainly provided
+to handle eventual DIOD functionalities changes.
 
 ```typescript
 const { getDefaultContainer } = useVueDiod();
 
 const container = getDefaultContainer();
+
 const instance = container.get(AbstractCounter);
 const taggedServices = container.findTaggedServiceIdentifiers('tag');
 ```

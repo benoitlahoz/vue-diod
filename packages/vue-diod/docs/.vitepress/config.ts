@@ -45,7 +45,7 @@ export default {
             link: '/composable-and-builder/use-vue-diod',
           },
           {
-            text: 'Builder',
+            text: 'VueDiodBuilder',
             link: '/composable-and-builder/builder',
           },
         ],
