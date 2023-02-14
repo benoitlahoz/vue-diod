@@ -42,6 +42,11 @@ export interface VueDiodInjectable {
    */
   register: Newable<unknown> | Abstract<unknown>;
   /**
+   * An alias for { register: ..., use: ... } to register a
+   * concrete implementation as key.
+   */
+  registerAndUse?: Newable<unknown>;
+  /**
    * Scope of the dependency.
    */
   scope?: VueDiodScope;
