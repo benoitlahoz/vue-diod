@@ -1,5 +1,10 @@
 import type { App, ComponentInternalInstance, InjectionKey } from 'vue';
-import type { Container, Abstract, ConfigurableRegistration } from 'diod';
+import type {
+  Container,
+  Abstract,
+  ConfigurableRegistration,
+  Newable,
+} from 'diod';
 import { VueDiodConfiguration, VueDiodScope } from '../types';
 import { ContainerBuilder } from 'diod';
 
@@ -156,14 +161,19 @@ export class VueDiodBuilder {
   }
 
   /**
+   * 'Provide' the bootstrapped services at app or component level.
+   * Method is also responsible of providing tagged services or services
+   * that have been referenced by a token.
    *
    * @param target
    * @param config
+   * @private
    */
   private _provide(target: any, config: VueDiodConfiguration): void {
     // Keep a cache of already set tags.
 
     const tags: Array<string> = [];
+    const tokens: Array<string | symbol> = [];
 
     // Inject all services in Vue application via their abstraction class name.
 
@@ -185,19 +195,35 @@ export class VueDiodBuilder {
       // If token is set, register the injection for token name too.
 
       let Token;
-      if (typeof service.token === 'boolean') {
-        // Dependency can be found by the abstract class's name.
+      if (typeof service.token === 'boolean' && service.token === true) {
+        if (!tokens.includes(service.register.name)) {
+          // Dependency can be found by the abstract class's name.
 
-        Token = service.register.name;
-        target.provide(Token, () => this._container!.get(service.register));
+          Token = service.register.name;
+          target.provide(Token, () => this._container!.get(service.register));
+
+          tokens.push(Token);
+        } else {
+          console.warn(
+            `Token with class name '${service.register.name}' was already registered.`
+          );
+        }
       } else if (
-        // Dependency can be found by the given string or symbol.
-
         typeof service.token === 'string' ||
         typeof service.token === 'symbol'
       ) {
-        Token = service.token;
-        target.provide(Token, () => this._container!.get(service.register));
+        if (!tokens.includes(service.token)) {
+          // Dependency can be found by the given string or symbol.
+
+          Token = service.token;
+          target.provide(Token, () => this._container!.get(service.register));
+
+          tokens.push(Token);
+        } else {
+          console.warn(
+            `Token '${String(service.token)}' was already registered.`
+          );
+        }
       }
 
       // If tag property is set, provides also the key
@@ -227,6 +253,7 @@ export class VueDiodBuilder {
    * The component to inject the dependencies in.
    * @param { VueDiodConfiguration } config The VueDiod configuration object,
    * with the mandatory entry 'injectables'.
+   * @private
    */
   private _provideComponent(
     target: ComponentInternalInstance,
@@ -245,6 +272,16 @@ export class VueDiodBuilder {
     };
 
     this._provide(component, config);
+  }
+
+  /**
+   * Checks if a given valass is registered.
+   * @param { Abstract<T> | Newable<T> } identifier The identifier of
+   * the dependency.
+   * @returns { boolean } true if registered, false if not.
+   */
+  public isRegistered<T>(identifier: Abstract<T> | Newable<T>): boolean {
+    return this._builder.isRegistered(identifier);
   }
 
   /**
