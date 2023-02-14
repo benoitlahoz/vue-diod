@@ -29,7 +29,6 @@ export class VueDiodBuilder {
    * @param { App | (T extends Component<infer P> ? Partial<P> : never) }
    * The application or component to inject the dependencies in.
    * @param { VueDiodConfiguration } config The VueDiod configuration object,
-   * with the mandatory entry 'injectables'.
    */
   public bootstrap(
     // See: https://stackoverflow.com/a/74472058
@@ -46,11 +45,18 @@ export class VueDiodBuilder {
      **************************************************************************/
 
     for (const service of config.injectables) {
-      let registered: ConfigurableRegistration | null = null;
+      let registered;
 
-      if (service.use || service.useFactory) {
-        let registered;
-        if (service.use) {
+      if (service.registerAndUse || service.use || service.useFactory) {
+        if (service.registerAndUse) {
+          registered = this._builder.registerAndUse(service.registerAndUse);
+
+          if (service.dependencies) {
+            // Disables autowire in DIOD.
+
+            registered = registered.withDependencies(service.dependencies);
+          }
+        } else if (service.use) {
           registered = this._builder
             .register(service.register)
             .use(service.use);
@@ -148,15 +154,15 @@ export class VueDiodBuilder {
         // 'target' doesn't expose 'provide' method
         // but has 'vnode' and 'component'.
 
-        this._provideComponent(target as ComponentInternalInstance, config);
-      }
-      /*
-      else {
-        throw new Error(
-          `'target' is neither an application object nor a component.`
+        this._provideComponent(
+          (target as any).vnode.component as ComponentInternalInstance,
+          config
+        );
+      } else {
+        console.error(
+          `'target' is neither an application object nor a valid component.`
         );
       }
-      */
     }
   }
 
@@ -249,17 +255,14 @@ export class VueDiodBuilder {
    * Prepares component by adding a custom 'provide' method, then calls the
    * private method '_provide'.
    *
-   * @param { T extends Component<infer P> ? Partial<P> : never }
+   * @param { any } target
    * The component to inject the dependencies in.
    * @param { VueDiodConfiguration } config The VueDiod configuration object,
    * with the mandatory entry 'injectables'.
    * @private
    */
-  private _provideComponent(
-    target: ComponentInternalInstance,
-    config: VueDiodConfiguration
-  ): void {
-    const component = target.vnode.component as any;
+  private _provideComponent(target: any, config: VueDiodConfiguration): void {
+    const component = target as any;
 
     component.provide = (
       key: string | InjectionKey<() => unknown>,
@@ -285,7 +288,15 @@ export class VueDiodBuilder {
   }
 
   /**
-   * The native DIOD container for this instance.
+   * The native DIOD builder for this instance of VueDiodBuilder.
+   * @see https://github.com/artberri/diod/blob/main/docs/README.md
+   */
+  public get builder(): ContainerBuilder | undefined {
+    return this._builder;
+  }
+
+  /**
+   * The native DIOD container for this instance of VueDiodBuilder.
    * @see https://github.com/artberri/diod/blob/main/docs/README.md
    */
   public get container(): Container | undefined {
