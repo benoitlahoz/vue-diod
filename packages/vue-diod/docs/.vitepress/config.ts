@@ -38,6 +38,19 @@ export default {
         ],
       },
       {
+        text: 'Composable & Builder',
+        items: [
+          {
+            text: 'useVueDiod',
+            link: '/composable-and-builder/use-vue-diod',
+          },
+          {
+            text: 'Builder',
+            link: '/composable-and-builder/builder',
+          },
+        ],
+      },
+      {
         text: 'Examples',
         items: [
           {
@@ -50,7 +63,7 @@ export default {
           },
           {
             text: 'Parent → Child',
-            link: '/examples/provider-component',
+            link: '/examples/parent-child',
           },
         ],
       },

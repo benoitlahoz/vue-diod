@@ -3,10 +3,10 @@
   import { AbstractMeal } from '../modules';
   import { useVueDiod } from '../../../../src';
 
-  const { injectService } = useVueDiod();
+  const { injectServiceInstance } = useVueDiod();
 
   const key = ref(AbstractMeal);
-  const injected = injectService(AbstractMeal);
+  const injected = injectServiceInstance(AbstractMeal);
 </script>
 <template>
   <div class="injector-container">
@@ -16,7 +16,7 @@
         <h3 style="margin: 0 0 1rem 0">I'm the child component 👶</h3>
         <div class="injector-result-line">
           <span>I was dependent of an&nbsp;</span>
-          <pre style="margin: 0">{{ key.name }}</pre>
+          <pre style="margin: 0">{{ key.name }}(AbstractMeal)</pre>
           <span>&nbsp;🍖</span>
         </div>
         <div class="injector-result-line">
@@ -31,7 +31,9 @@
             </span>
             &nbsp;a&nbsp;</span
           >
-          <pre style="margin: 0">{{ injected?.constructor.name }}</pre>
+          <pre style="margin: 0"
+            >{{ injected?.constructor.name }}(VegetarianMeal)</pre
+          >
         </div>
       </div>
       <div class="injector-meal-result">
@@ -42,11 +44,11 @@
             <h3 style="margin: 0 0 1rem 0">Main</h3>
             <badge
               type="info"
-              :text="injected?.main"
+              :text="injected?.main.name"
               style="height: fit-content"
             />
           </div>
-          <div class="injector-meal-icon">🍚</div>
+          <div class="injector-meal-icon">{{ injected?.main.icon }}</div>
         </div>
 
         <!-- Side -->
@@ -58,11 +60,11 @@
             <h3 style="margin: 0 0 1rem 0">Side</h3>
             <badge
               type="info"
-              :text="injected?.side"
+              :text="injected?.side.name"
               style="height: fit-content"
             />
           </div>
-          <div class="injector-meal-icon">🥕</div>
+          <div class="injector-meal-icon">{{ injected?.side.icon }}</div>
         </div>
       </div>
     </div>

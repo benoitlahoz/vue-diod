@@ -56,9 +56,9 @@ abstraction and concrete class to module's configuration.
 
 ## Component
 
-To inject the counter in our component we can use the `injectService` method
-from the Vue DIOD composable `useVueDiod`. For other ways to inject our service,
-please refer to [Basic usage](../getting-started/basic-usage.md) section.
+To inject the counter in our component we can use the `injectServiceInstance`
+method from the Vue DIOD composable `useVueDiod`. For other ways to inject
+our service, please refer to [Basic usage](../getting-started/basic-usage.md) section.
 
 ```typescript
 <script setup lang="ts">
@@ -69,7 +69,7 @@ please refer to [Basic usage](../getting-started/basic-usage.md) section.
 
   // Use the injection helper.
 
-  const { injectService } = useVueDiod();
+  const { injectServiceInstance } = useVueDiod();
 
   // Setup the (optional) fallback.
 
@@ -86,7 +86,7 @@ please refer to [Basic usage](../getting-started/basic-usage.md) section.
     };
   };
 
-  const counter = injectService<AbstractCounter | any>(
+  const counter = injectServiceInstance<AbstractCounter | any>(
     // Pass the abstract class as key.
 
     AbstractCounter,
@@ -125,7 +125,7 @@ please refer to [Basic usage](../getting-started/basic-usage.md) section.
   // Our component's methods.
 
   // WARNING: Typescript will not complain if you didn't pass a fallback
-  // to the injectService method above as we ensured it returns
+  // to the injectServiceInstance method above as we ensured it returns
   // 'AbstractCounter' or 'any'.
 
   const increment = counter.increment.bind(counter);

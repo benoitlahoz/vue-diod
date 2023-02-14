@@ -7,7 +7,7 @@
 
   // Use the injection helper.
 
-  const { injectService } = useVueDiod();
+  const { injectServiceInstance } = useVueDiod();
 
   const fallback = () => {
     return {
@@ -22,7 +22,7 @@
     };
   };
 
-  const counter = injectService<AbstractSimpleCounter | any>(
+  const counter = injectServiceInstance<AbstractSimpleCounter | any>(
     // Pass the abstract class as key.
 
     AbstractSimpleCounter,

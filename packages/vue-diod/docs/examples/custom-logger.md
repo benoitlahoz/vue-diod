@@ -122,7 +122,7 @@ The counter implementation's dependency is set at the application bootstrap.
 
   // Use the injection helper.
 
-  const { injectService } = useVueDiod();
+  const { injectServiceInstance } = useVueDiod();
 
   // Setup the (optional) fallback.
 
@@ -139,7 +139,7 @@ The counter implementation's dependency is set at the application bootstrap.
     };
   };
 
-  const counter = injectService<AbstractCounter | any>(
+  const counter = injectServiceInstance<AbstractCounter | any>(
     AbstractCounter,
     fallback
   );

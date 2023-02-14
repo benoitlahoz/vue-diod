@@ -30,11 +30,11 @@
       <h3>I'm the parent component 🧑</h3>
       <div class="provider-content">
         <span>I promised an&nbsp;</span>
-        <pre>{{ AbstractMeal.name }}</pre>
+        <pre>{{ AbstractMeal.name }}(AbstractMeal)</pre>
         <span>&nbsp;and provided a&nbsp;</span>
-        <pre>{{ VegetarianMeal.name }}</pre>
+        <pre>{{ VegetarianMeal.name }}(VegetarianMeal)</pre>
       </div>
-      <h4>to my child 💪 component below</h4>
+      <h4 style="margin-top: 1rem">to my child 💪 component below</h4>
     </div>
     <injector class="provider-child" />
   </div>

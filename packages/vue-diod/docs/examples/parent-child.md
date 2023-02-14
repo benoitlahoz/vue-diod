@@ -6,7 +6,7 @@ title: Parent → Child
 
 Instead or in addition of providing
 [global services](../getting-started/basic-usage#vue-diod), we can configure
-a new builder object at the component level, which built container will provide
+a new builder object at the component level, which container will provide
 services to its children.
 
 Let's create a meal service for our children!
@@ -179,7 +179,7 @@ be passed.
   import { useVueDiod } from 'vue-diod';
   import { AbstractMeal } from '../modules';
 
-  const { injectService } = useVueDiod();
+  const { injectServiceInstance } = useVueDiod();
 
   // Set 'key' as 'ref' because we use it in the template.
 
@@ -189,7 +189,7 @@ be passed.
   // NB: We are not using fallback here: we are sure it exist. In production
   // mode, we should provide one.
 
-  const injected = injectService(AbstractMeal);
+  const injected = injectServiceInstance(AbstractMeal);
 </script>
 ```
 
@@ -335,3 +335,8 @@ import ProviderComponent from '../.vitepress/theme/components/provider.component
 <div style="width: 100%; display: flex; justify-content: center; margin: 4rem 0;">
   <ProviderComponent />
 </div>
+
+::: info NOTA BENE
+Minified versions of our abstract and concrete classes can be found, even
+if their name change at compilation.
+:::

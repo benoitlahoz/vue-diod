@@ -201,7 +201,7 @@ import SimpleCounter from '../.vitepress/theme/components/simple-counter.compone
 
 ::: info SEE ALSO
 [Simple counter](../examples/simple-counter.md) example for an usage
-with Vue DIOD injection helper `injectService`.
+with Vue DIOD injection helper `injectServiceInstance`.
 :::
 
 :::tip

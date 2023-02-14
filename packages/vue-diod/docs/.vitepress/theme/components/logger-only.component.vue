@@ -5,9 +5,9 @@
 
   // Use the injection helper.
 
-  const { injectService } = useVueDiod();
+  const { injectServiceInstance } = useVueDiod();
 
-  const logger = injectService<AbstractLogger | any>(AbstractLogger);
+  const logger = injectServiceInstance<AbstractLogger | any>(AbstractLogger);
 
   const log = logger.log.bind(logger);
   const info = logger.info.bind(logger);
