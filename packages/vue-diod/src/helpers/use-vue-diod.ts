@@ -1,7 +1,11 @@
-import type { InjectionKey } from 'vue';
+import {
+  ComponentInternalInstance,
+  InjectionKey,
+  getCurrentInstance,
+} from 'vue';
 import { inject } from 'vue';
 
-import type { Container, Abstract, Newable } from 'diod';
+import type { Container, Abstract, Newable, ContainerBuilder } from 'diod';
 import { VueDiodHelper } from './vue-diod-private-helper';
 import { VueDiodBuilder } from '../builder';
 
@@ -78,7 +82,7 @@ export const useVueDiod = () => {
    * @param { Abstract<T> | Newable<T> } identifier The identifier our concrete
    * class is bound to.
    * @param { VueDiodBuilder | undefined } builder The builder we wan't to check
-   * registration on.
+   * registration on or global builder by default.
    * @returns { boolean } true if the class is already registered, false if not.
    */
   const isRegistered = <T>(
@@ -93,12 +97,52 @@ export const useVueDiod = () => {
   };
 
   /**
-   * Get the default VueDiod container (registered through app.use(VueDiod))
+   * Checks if a class is provided by a parent component or by the app itself.
+   * @param { Abstract<T> | Newable<T> } identifier The identifier our concrete
+   * class is bound to.
+   * @returns { boolean } true if the class is provided, false if not.
+   */
+  const isProvided = <T>(identifier: Abstract<T> | Newable<T>): boolean => {
+    const instance: ComponentInternalInstance | null = getCurrentInstance();
+
+    if (instance) {
+      // Gets the application context.
+
+      const appContext = instance.appContext;
+
+      /**
+       * Check if the key is provided
+       *  1. by the component (i.e. it was provided upward)
+       *  2. by the application itself.
+       */
+      const existing =
+        Object.keys((instance as any).provides).find(
+          (key: any) => key == identifier
+        ) ||
+        Object.keys(appContext.provides).find((key: any) => key == identifier);
+
+      if (existing) return true;
+    }
+
+    return false;
+  };
+
+  /**
+   * Get the default DIOD builder (created by app.use(VueDiod))
+   * @returns { ContainerBuilder | undefined } The default builder when
+   * using VueDiod plugin in the Vue.js application.
+   */
+  const getDefaultBuilder = (): ContainerBuilder | undefined => {
+    return VueDiodHelper.defaultBuilder?.builder;
+  };
+
+  /**
+   * Get the default DIOD container (created by VueDiod plugin)
    * @returns { Container | undefined } The default container built when
    * bootstraping the Vue.js application.
    */
   const getDefaultContainer = (): Container | undefined => {
-    return VueDiodHelper.defaultBuilder.container;
+    return VueDiodHelper.defaultBuilder?.container;
   };
 
   return {
@@ -106,6 +150,8 @@ export const useVueDiod = () => {
     injectServiceInstance,
     injectServiceGetter,
     isRegistered,
+    isProvided,
+    getDefaultBuilder,
     getDefaultContainer,
   };
 };
