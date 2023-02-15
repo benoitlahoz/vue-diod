@@ -192,7 +192,7 @@ const count: Ref<number> = ref(0)
 And here is the result... Impressive, isn't it? :smile:
 
 <script setup>
-import SimpleCounter from '../.vitepress/theme/components/simple-counter.component.vue';
+import SimpleCounter from '../.vitepress/theme/examples-components/simple-counter.component.vue';
 </script>
 
 <div style="width: 100%; display: flex; justify-content: center; margin: 4rem 0;">

@@ -65,12 +65,50 @@ export default {
             text: 'Parent → Child',
             link: '/examples/parent-child',
           },
+          {
+            text: 'Storage Service',
+            collapsed: true,
+            items: [
+              {
+                text: 'Introduction',
+                link: '/examples/storage/introduction',
+              },
+              {
+                text: 'User Stories',
+                link: '/examples/storage/user-stories',
+              },
+              {
+                text: 'Functionalities',
+                link: '/examples/storage/functionalities',
+              },
+              {
+                text: 'Abstractions',
+                link: '/examples/storage/abstractions',
+              },
+              {
+                text: 'Local Storage',
+                link: '/examples/storage/local-storage',
+              },
+              {
+                text: 'Save to File',
+                link: '/examples/storage/file-save',
+              },
+              {
+                text: 'Vue.js Composition',
+                link: '/examples/storage/composition',
+              },
+              {
+                text: 'Final Component',
+                link: '/examples/storage/final-component',
+              },
+            ],
+          },
         ],
       },
     ],
     nav: [
       {
-        text: 'DIOD on GitHub',
+        text: 'DIOD',
         link: 'https://github.com/artberri/diod#diod---dependency-injection-on-demand',
       },
     ],

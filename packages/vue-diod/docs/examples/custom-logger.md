@@ -168,8 +168,8 @@ Open your devtools to see custom logs.
 :::
 
 <script setup>
-import CustomLogger from '../.vitepress/theme/components/custom-logger.component.vue';
-import LoggerOnly from '../.vitepress/theme/components/logger-only.component.vue';
+import CustomLogger from '../.vitepress/theme/examples-components/custom-logger.component.vue';
+import LoggerOnly from '../.vitepress/theme/examples-components/logger-only.component.vue';
 </script>
 
 <div style="width: 100%; display: flex; justify-content: center; margin: 4rem 0;">

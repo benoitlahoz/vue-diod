@@ -12,7 +12,7 @@ import {
   SimpleCounter,
   Counter,
   Logger,
-} from './modules';
+} from './generic-modules';
 
 export default {
   ...DefaultTheme,
