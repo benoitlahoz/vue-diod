@@ -6,6 +6,7 @@ import {
 import { inject } from 'vue';
 
 import type { Container, Abstract, Newable, ContainerBuilder } from 'diod';
+
 import { VueDiodHelper } from './vue-diod-private-helper';
 import { VueDiodBuilder } from '../builder';
 
