@@ -1,11 +1,8 @@
 import 'reflect-metadata';
 
 import type { App } from 'vue';
-import type {
-  VueDiodConfiguration,
-  VueDiodInjectable,
-  VueDiodScope,
-} from './types';
+import type { VueDiodConfiguration, VueDiodInjectable } from './types';
+import { VueDiodScope } from './types';
 import { VueDiodBuilder } from './builder';
 import { VueDiodHelper } from './helpers/vue-diod-private-helper';
 
@@ -42,5 +39,9 @@ export { VueDiodBuilder };
 // Composables.
 export * from './helpers';
 
+// Enum.
+
+export { VueDiodScope };
+
 // Types.
-export type { VueDiodConfiguration, VueDiodInjectable, VueDiodScope };
+export type { VueDiodConfiguration, VueDiodInjectable };
