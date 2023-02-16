@@ -1,3 +1,12 @@
+<center>
+<img src="https://github.com/benoitlahoz/vue-diod/raw/main/packages/vue-diod/docs/public/logo-vue-diod%40512px.png" width="200" />
+
 # Vue DIOD
 
-[Documentation](https://benoitlahoz.github.io/vue-diod)
+**Dependency Injection On Demand in Vue.js thanks to DIOD library.**
+
+---
+
+</center>
+
+[Documentation & Examples](https://benoitlahoz.github.io/vue-diod)
