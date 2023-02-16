@@ -54,6 +54,7 @@ In your `main.ts` file, for example.
 
 ```typescript
 import('reflect-metadata');
+import VueDiod from 'vue-diod';
 
 // ...
 

@@ -17,7 +17,7 @@ As stated by its [author](https://github.com/artberri) on [GitHub](https://githu
 
 > A very opinionated and lightweight (under 2kB minified and gzipped) inversion of control container and dependency injector for Node.js or browser apps. It is available for vanilla Javascript usage but its true power will be shown by building Typescript apps.
 
-**Vue DIOD** is made on top of DIOD and helps avoiding [SOLID](https://en.wikipedia.org/wiki/SOLID) principles violations in [Vue 3](https://vuejs.org/) applications. It allows to configure dependencies at the app level and / or at component level, without children knowing abour the actual implementations.
+**Vue DIOD** is made on top of DIOD and helps avoiding [SOLID](https://en.wikipedia.org/wiki/SOLID) principles violations in [Vue 3](https://vuejs.org/) applications. It allows to configure dependencies at the app level and / or at component level, without children knowing about the actual implementations.
 
 Basically, it wraps DIOD functionalities in a plugin which uses Vue's `provide` method to make dependencies available to subtree components, by calling `inject` with the registered abstract class as key.
 
@@ -54,6 +54,7 @@ In your `main.ts` file, for example.
 
 ```typescript
 import('reflect-metadata');
+import VueDiod from 'vue-diod';
 
 // ...
 
@@ -115,7 +116,7 @@ const decrement = counter.decrement.bind(counter);
 // ...
 ```
 
-For other examples, please check the [documentation](https://benoitlahoz.github.io/vue-diod) that also provides an [example](https://benoitlahoz.github.io/vue-diod/examples/storage/introduction) for bootstrapping the container at component level.
+For other examples, please check the [documentation](https://benoitlahoz.github.io/vue-diod) that provides an [example](https://benoitlahoz.github.io/vue-diod/examples/storage/introduction) for bootstrapping the container at component level, and demonstrate DIOD's powerful `autowire` for constructor's dependencies.
 
 ## Install
 
