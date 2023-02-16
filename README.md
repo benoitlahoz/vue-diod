@@ -9,9 +9,9 @@
 
 </p>
 
-[Documentation & Examples](https://benoitlahoz.github.io/vue-diod)
+[Documentation & Examples](https://benoitlahoz.github.io/vue-diod) | [DIOD on GitHub](https://github.com/artberri/diod)
 
-## Quick Start
+## Install & Configure
 
 ### Install dependencies
 
