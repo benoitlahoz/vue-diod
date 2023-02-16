@@ -22,7 +22,7 @@ export default {
     // logo: '/assets/logo_vuoz@512px.png',
     // ...
     // sidebar: getSideBar('./docs'),
-    logo: '../public/logo-vue-diod@512px.png',
+    logo: './logo-vue-diod@512px.png',
     sidebar: [
       {
         text: 'Getting started',
