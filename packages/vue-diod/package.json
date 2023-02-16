@@ -1,7 +1,7 @@
 {
   "name": "vue-diod",
   "private": false,
-  "version": "0.0.9",
+  "version": "0.1.1",
   "description": "Dependency injection in Vue 3 with DIOD.",
   "license": "MIT",
   "author": {

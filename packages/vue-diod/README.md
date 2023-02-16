@@ -115,7 +115,7 @@ const decrement = counter.decrement.bind(counter);
 // ...
 ```
 
-For other examples, please check the [documentation](https://benoitlahoz.github.io/vue-diod) that also provides an [example](https://benoitlahoz.github.io/vue-diod/examples/storage/introduction) for bootstrapping the container at component level.
+For other examples, please check the [documentation](https://benoitlahoz.github.io/vue-diod) that provides an [example](https://benoitlahoz.github.io/vue-diod/examples/storage/introduction) for bootstrapping the container at component level, and demonstrate DIOD's powerful `autowire` for constructor's dependencies.
 
 ## Install
 
