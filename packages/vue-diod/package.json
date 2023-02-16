@@ -18,8 +18,18 @@
     "container",
     "typescript",
     "diod",
-    "vue"
+    "vue",
+    "provide",
+    "inject"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benoitlahoz/vue-diod"
+  },
+  "bugs": {
+    "url": "https://github.com/benoitlahoz/vue-diod/issues"
+  },
+  "homepage": "https://benoitlahoz.github.io/vue-diod/",
   "files": [
     "dist/",
     "LICENSE",
@@ -36,6 +46,9 @@
       "import": "./dist/vue-diod.mjs"
     }
   },
+  "browserslist": [
+    "> 1%, not dead, not ie 11, not op_mini all"
+  ],
   "publishConfig": {
     "access": "public"
   },
