@@ -174,10 +174,8 @@ Vue.js application as target (`self` below).
 ```typescript
 const { isRegistered } = useVueDiod();
 
-const self = getCurrentInstance();
-
 const builder = new VueDiodBuilder();
-builder.bootstrap(self, {
+builder.bootstrap({
   register: AbstractCounter,
   use: Counter,
 });

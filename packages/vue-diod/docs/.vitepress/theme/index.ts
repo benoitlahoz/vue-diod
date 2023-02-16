@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import DefaultTheme from 'vitepress/theme';
+import { createPinia } from 'pinia';
 import VueDiod from '../../../src';
 import {
   // Abstractions.
@@ -36,6 +37,10 @@ export default {
         { register: AbstractLogger, use: Logger },
       ],
     });
+
+    // For our examples, Pinia must be created after VueDiod
+    // has been bootstrapped.
+    app.use(createPinia());
   },
   setup() {
     //

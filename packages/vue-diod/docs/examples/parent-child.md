@@ -61,7 +61,6 @@ actual implementation.
 // provider.component.vue
 
 <script setup lang="ts">
-  import { getCurrentInstance } from 'vue';
   import { VueDiodBuilder } from 'vue-diod';
   import { AbstractMeal, VegetarianMeal } from '../modules';
 
@@ -73,15 +72,11 @@ actual implementation.
 
   const builder = new VueDiodBuilder();
 
-  // Get instance of 'this' component.
-
-  const self = getCurrentInstance();
-
   // Bootstraps the builder we just created,
   // as in global plugin's configuration
   // but on the component's instance.
 
-  builder.bootstrap(self, {
+  builder.bootstrap({
     injectables: [
       {
         register: AbstractMeal, // This is what the child is waiting for.

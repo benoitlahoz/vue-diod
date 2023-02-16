@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import { getCurrentInstance } from 'vue';
   import { AbstractMeal, VegetarianMeal } from './modules';
   import Injector from './injector.component.vue';
   import { VueDiodBuilder } from '../../../../../src';
@@ -8,14 +7,10 @@
 
   const builder = new VueDiodBuilder();
 
-  // Get instance of 'this' component.
-
-  const self = getCurrentInstance();
-
   // Bootstraps the builder, as in global plugin's configuration
   // but on the component's instance.
 
-  builder.bootstrap(self, {
+  builder.bootstrap({
     injectables: [
       {
         register: AbstractMeal,

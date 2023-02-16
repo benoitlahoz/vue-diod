@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import { getCurrentInstance } from 'vue';
   import {
     VueDiodBuilder,
     VueDiodInjectable,
@@ -17,7 +16,6 @@
   } from './modules/services';
   import StorageService from './components/storage-service.component.vue';
 
-  const self = getCurrentInstance();
   const builder = new VueDiodBuilder();
 
   const STORAGE_PREFIX: string = 'vue-diod-example';
@@ -35,7 +33,7 @@
     { register: FileSaveUseCase, use: FileSaver },
   ];
 
-  builder.bootstrap(self, { injectables });
+  builder.bootstrap({ injectables });
 </script>
 <template>
   <storage-service />

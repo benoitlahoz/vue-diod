@@ -1,1 +1,0 @@
-import{_ as s,o as n,c as a,d as l}from"./app.3a5c75e3.js";let C=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"snippets/simple-counter.example.md"}'),p={name:"snippets/simple-counter.example.md"},e=l("",1),o=[e];function t(r,c,D,i,y,F){return n(),a("div",null,o)}let b=s(p,[["render",t]]);export{C as __pageData,b as default};

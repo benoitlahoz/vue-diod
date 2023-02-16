@@ -39,7 +39,6 @@ functionalities to its children.
 // storage-provider.component.vue
 
 <script setup lang="ts">
-  import { getCurrentInstance } from 'vue';
   import { VueDiodBuilder, VueDiodInjectable, VueDiodScope } from 'vue-diod';
   import {
     // Abstractions.
@@ -51,9 +50,6 @@ functionalities to its children.
     LocalStorage,
     FileSaver,
   } from './modules/services';
-
-  // Get 'this'
-  const self = getCurrentInstance();
 
   // Create a new builder.
   const builder = new VueDiodBuilder();
@@ -83,7 +79,7 @@ functionalities to its children.
   ];
 
   // Bootstrap and build the dependency container.
-  builder.bootstrap(self, { injectables });
+  builder.bootstrap({ injectables });
 </script>
 <template>
   <!-- Here we could use multiple components. -->

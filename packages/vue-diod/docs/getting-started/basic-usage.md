@@ -95,7 +95,7 @@ Then we can get our `CounterByOne` instance by calling:
 const counter = container.get(AbstractCounter);
 ```
 
-If we wanted another implementation of the same aabstract class we could write:
+If we wanted another implementation of the same abstract class we could write:
 
 ```typescript
 // ...

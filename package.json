@@ -1,5 +1,6 @@
 {
   "name": "vue-diod",
+  "private": true,
   "author": {
     "name": "Benoît LAHOZ",
     "email": "info@benoitlahoz.io",

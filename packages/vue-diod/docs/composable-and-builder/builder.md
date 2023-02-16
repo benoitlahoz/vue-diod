@@ -61,21 +61,15 @@ The way to bootstrap the container is the same as at global level, but we have
 to pass the current instance of the component we're creating the builder in.
 
 ```typescript
-import { getCurrentInstance } from 'vue';
-
 // Creates a new builder.
 
 const builder = new VueDiodBuilder();
-
-// Get instance of 'this' component.
-
-const self = getCurrentInstance();
 
 // Bootstraps the builder we just created,
 // as in global plugin's configuration
 // but on the component's instance.
 
-builder.bootstrap(self, {
+builder.bootstrap({
   injectables: [
     {
       register: AbstractCounter, // This is what the children are waiting for.
@@ -85,7 +79,8 @@ builder.bootstrap(self, {
 });
 ```
 
-Here, we're using the Vue's method `getCurrentInstance` to call `provide` on it.
+Under the hood VueDiodBuilder uses the Vue's method `getCurrentInstance`
+to call `provide` on it.
 
 ::: warning
 `getCurrentInstance` seems to be a 'private' method in Vue. It is

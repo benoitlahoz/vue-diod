@@ -1,25 +1,35 @@
 {
-  "hash": "afd2b143",
-  "browserHash": "bea30b7d",
+  "hash": "e599c619",
+  "browserHash": "3ce9c9ff",
   "optimized": {
     "vue": {
       "src": "../../../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "2ed7aab9",
+      "fileHash": "871108ac",
       "needsInterop": false
     },
     "reflect-metadata": {
       "src": "../../../../../../node_modules/reflect-metadata/Reflect.js",
       "file": "reflect-metadata.js",
-      "fileHash": "912a1971",
+      "fileHash": "2987ec97",
       "needsInterop": true
+    },
+    "pinia": {
+      "src": "../../../../../../node_modules/pinia/dist/pinia.mjs",
+      "file": "pinia.js",
+      "fileHash": "eb14e41e",
+      "needsInterop": false
     },
     "diod": {
       "src": "../../../../../../node_modules/diod/lib/diod.es.js",
       "file": "diod.js",
-      "fileHash": "afa6090a",
+      "fileHash": "938d98b4",
       "needsInterop": false
     }
   },
-  "chunks": {}
+  "chunks": {
+    "chunk-EJOTFXO6": {
+      "file": "chunk-EJOTFXO6.js"
+    }
+  }
 }
