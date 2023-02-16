@@ -16,7 +16,7 @@ export const useVueDiod = () => {
    * default one (created via VueDiod plugin)
    * @param { Abstract<T> || Newable<T> } identifier The identifier our service
    * is bound to.
-   * @param { T | undefined } fallback An optional fallback to return
+   * @param { T | undefined | null } fallback An optional fallback to return
    * if the key wasn't found.
    * @param { Container | undefined } container The container to
    * return service from.
@@ -25,7 +25,7 @@ export const useVueDiod = () => {
    */
   const injectFromContainer = <T>(
     identifier: Abstract<T> | Newable<T>,
-    fallback?: T,
+    fallback?: T | null,
     container?: Container
   ): T | undefined => {
     const currentContainer = container || getDefaultContainer();
