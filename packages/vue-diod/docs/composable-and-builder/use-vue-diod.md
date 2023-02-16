@@ -135,6 +135,50 @@ injectServiceInstance: <T>(
 ) => T | undefined;
 ```
 
+## injectFromContainer
+
+When we can't use Vue's `inject` method (e.g. in
+[Pinia](https://pinia.vuejs.org/)) we can get our services directly from DOD's
+main or component level container.
+
+::: warning ROADMAP
+Create a recursive method to check in a 'builders cache' the first service
+that responds to our key, like Vue does with `inject`.
+:::
+
+```typescript
+// ...
+
+import { defineStore } from 'pinia';
+import { useVueDiod } from 'vue-diod';
+
+const { injectFromContainer } = useVueDiod();
+
+const useMyStore = defineStore({
+  // ...
+
+  actions: {
+    increment() {
+      // Inject the service directly from the VueDiod plugin container.
+
+      const counter = injectFromContainer(AbstractCounter);
+      this.count = counter!.increment(this.count);
+    },
+  },
+  // ...
+});
+```
+
+### Types
+
+```typescript
+injectFromContainer: <T>(
+  identifier: Abstract<T> | Newable<T>,
+  fallback?: T | null,
+  container?: Container
+): T | undefined;
+```
+
 ## isRegistered
 
 Before injecting a dependency, we can check if it has actually been registered.

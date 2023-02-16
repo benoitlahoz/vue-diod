@@ -102,12 +102,10 @@ export default {
               },
             ],
           },
-          /*
           {
-            text: 'Pinia',
-            link: '/examples/pinia/pinia-foo',
+            text: 'Use with Pinia',
+            link: '/examples/pinia/pinia-simple',
           },
-          */
         ],
       },
     ],
