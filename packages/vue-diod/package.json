@@ -70,6 +70,7 @@
     "@swc/core": "^1.3.32",
     "@types/node": "^18.13.0",
     "@vitejs/plugin-vue": "^4.0.0",
+    "pinia": "^2.0.30",
     "rimraf": "^4.1.2",
     "rollup-plugin-swc3": "^0.8.0",
     "terser": "^5.16.3",
@@ -78,9 +79,6 @@
     "vite-plugin-dts": "^1.7.2",
     "vite-plugin-ts": "^1.3.2-1",
     "vitepress": "^1.0.0-alpha.45"
-  },
-  "optionalDependencies": {
-    "pinia": "^2.0.30"
   },
   "peerDependencies": {
     "diod": "^2.0.0",
