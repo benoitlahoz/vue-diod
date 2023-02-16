@@ -173,7 +173,7 @@
                     flex-wrap: wrap;
                   "
                 >
-                  <div>
+                  <div style="margin-right: 1rem">
                     {{ entry[0] }}
                   </div>
                   <div style="margin-left: auto">
@@ -195,7 +195,7 @@
                     flex-wrap: wrap;
                   "
                 >
-                  <div>{{ entry[1] }}</div>
+                  <div style="margin-right: 1rem">{{ entry[1] }}</div>
                   <div style="margin-left: auto">
                     <v-p-button
                       text="Remove"
