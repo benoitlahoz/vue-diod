@@ -6,7 +6,7 @@ hero:
   text: Dependency injection in Vue 3.
   tagline: Made possible thanks to DIOD library.
   image:
-    src: /public/logo-vue-diod@512px.png
+    src: logo-vue-diod@512px.png
     alt: VueDiod
   actions:
     - theme: brand
