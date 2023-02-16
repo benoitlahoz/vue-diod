@@ -1,10 +1,10 @@
-import type { App, ComponentInternalInstance, InjectionKey } from 'vue';
-import type {
-  Container,
-  Abstract,
-  ConfigurableRegistration,
-  Newable,
-} from 'diod';
+import {
+  App,
+  ComponentInternalInstance,
+  InjectionKey,
+  getCurrentInstance,
+} from 'vue';
+import type { Container, Abstract, Newable } from 'diod';
 import { VueDiodConfiguration, VueDiodScope } from '../types';
 import { ContainerBuilder } from 'diod';
 
@@ -26,16 +26,20 @@ export class VueDiodBuilder {
   /**
    * Registers and use the couples abstraction / implementation to be injected.
    *
-   * @param { App | (T extends Component<infer P> ? Partial<P> : never) }
-   * The application or component to inject the dependencies in.
    * @param { VueDiodConfiguration } config The VueDiod configuration object,
+   * @param { App | undefined }
+   * The application or component to inject the dependencies in. If undefined,
+   * the builder will try to find the component's instance to bootstrap
+   * dependencies on.
    */
   public bootstrap(
-    // See: https://stackoverflow.com/a/74472058
-
-    target: App | ComponentInternalInstance | undefined | null,
-    config: VueDiodConfiguration
+    config: VueDiodConfiguration,
+    target?: App | ComponentInternalInstance | undefined | null
   ): void {
+    // If target is not provided, try to find a component instance.
+
+    target = target || getCurrentInstance();
+
     if (!target) throw new Error(`'target' must be defined.`);
     /***************************************************************************
      *

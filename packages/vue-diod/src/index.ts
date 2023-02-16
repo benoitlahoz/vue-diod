@@ -10,20 +10,20 @@ const plugin = {
   install(app: App, config: VueDiodConfiguration) {
     // Bootstraps [Vue]Diod container with given instances.
 
-    buildContainer(app, config);
+    buildContainer(config, app);
 
     // TODO: Components and directives (mixins?).
   },
 };
 
-const buildContainer = (app: App, config: VueDiodConfiguration) => {
+const buildContainer = (config: VueDiodConfiguration, app: App) => {
   // Creates a VuozBuilder instance.
 
   const builder = new VueDiodBuilder();
 
   // Registers and provide injectables at the app level.
 
-  builder.bootstrap(app, config);
+  builder.bootstrap(config, app);
 
   // Keep the builder in cache to allow getting it from composable.
 

@@ -12,6 +12,39 @@ import { VueDiodBuilder } from '../builder';
 
 export const useVueDiod = () => {
   /**
+   * Injects a service for provided container or
+   * default one (created via VueDiod plugin)
+   * @param { Abstract<T> || Newable<T> } identifier The identifier our service
+   * is bound to.
+   * @param { T | undefined } fallback An optional fallback to return
+   * if the key wasn't found.
+   * @param { Container | undefined } container The container to
+   * return service from.
+   * @returns { T | undefined } An instance of the bound service or
+   * undefined if it was not added at bootstrap.
+   */
+  const injectFromContainer = <T>(
+    identifier: Abstract<T> | Newable<T>,
+    fallback?: T,
+    container?: Container
+  ): T | undefined => {
+    const currentContainer = container || getDefaultContainer();
+    if (!currentContainer) {
+      throw new Error(
+        'No default container was found to inject dependency from.'
+      );
+    }
+
+    // Gets the instance.
+
+    const injected = currentContainer.get(identifier) || fallback;
+
+    // Calls the function and return the result.
+
+    return <T | undefined>injected;
+  };
+
+  /**
    * Injects a new instance associated with passed abstract class (key),
    * by calling the function that was injected in Vue.js. Under the hood,
    * the injected function is calling 'get' on the container the abstract class
@@ -150,6 +183,7 @@ export const useVueDiod = () => {
     injectionKeyForClass,
     injectServiceInstance,
     injectServiceGetter,
+    injectFromContainer, // TODO: Documentation.
     isRegistered,
     isProvided,
     getDefaultBuilder,
