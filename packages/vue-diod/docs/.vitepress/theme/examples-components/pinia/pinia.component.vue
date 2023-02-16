@@ -4,6 +4,7 @@
   import { useCounterStore } from '../../stores/counter.store';
 
   const store = useCounterStore();
+
   const { count } = storeToRefs(useCounterStore());
   const { doubleCount } = useCounterStore();
 
@@ -49,7 +50,6 @@
           </tr>
         </tbody>
       </table>
-      <div></div>
     </div>
   </div>
 </template>

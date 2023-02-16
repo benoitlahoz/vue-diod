@@ -103,7 +103,7 @@ If `registerAndUse` is present, `register` will not be read.
 
 :::
 
-## Scope
+## VueDiodScope
 
 From **DIOD** documentation:
 
