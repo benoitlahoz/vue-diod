@@ -52,7 +52,7 @@ export class VueDiodBuilder {
           registered = this._builder.registerAndUse(service.registerAndUse);
 
           if (service.dependencies) {
-            // Disables autowire in DIOD.
+            // NB: Disables autowire for this service.
 
             registered = registered.withDependencies(service.dependencies);
           }
@@ -159,6 +159,8 @@ export class VueDiodBuilder {
           config
         );
       } else {
+        // For SSR.
+        // TODO: Check if we are in SSR mode and if not throw an error.
         console.error(
           `'target' is neither an application object nor a valid component.`
         );
