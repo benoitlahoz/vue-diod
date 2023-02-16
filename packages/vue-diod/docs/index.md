@@ -4,7 +4,7 @@ layout: home
 hero:
   name: Vue DIOD
   text: Dependency injection in Vue 3
-  tagline: Made possible thanks to DIOD library.
+  tagline: 'DIOD library in Vue: Dependency Injection On Demand with provide / inject.'
   image:
     src: logo-vue-diod@512px.png
     alt: VueDiod
