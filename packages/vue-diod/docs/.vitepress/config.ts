@@ -19,8 +19,6 @@ export default {
   outDir: resolve(__dirname, '../../../../docs'),
   cleanUrls: true,
   themeConfig: {
-    // logo: '/assets/logo_vuoz@512px.png',
-    // ...
     // sidebar: getSideBar('./docs'),
     logo: './logo-vue-diod@512px.png',
     sidebar: [
