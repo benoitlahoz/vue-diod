@@ -1,7 +1,7 @@
 {
   "name": "vue-diod",
   "private": false,
-  "version": "0.0.8",
+  "version": "0.0.9",
   "license": "MIT",
   "author": {
     "name": "Benoît LAHOZ",
@@ -20,14 +20,12 @@
     "diod",
     "vue"
   ],
-  "directories": {
-    "dist": "dist"
-  },
   "files": [
+    "dist/",
     "LICENSE",
     "package.json",
     "README.md",
-    "tscopnfig.json",
+    "tsconfig.json",
     "vite.config.ts"
   ],
   "main": "dist/vue-diod.umd.cjs",
@@ -47,7 +45,8 @@
     "publish": "yarn build && yarn publish",
     "docs:dev": "vitepress dev docs",
     "docs:build": "rimraf ../../docs && sh ./build-docs.sh",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "pack:dry": "yarn pack --dry-run"
   },
   "dependencies": {
     "diod": "^2.0.0",
