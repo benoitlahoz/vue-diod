@@ -3,7 +3,7 @@
 
 <h1 align="center">Vue DIOD</h1>
 
-<h3 align="center">Dependency Injection On Demand in Vue.js thanks to DIOD library.</h3>
+<p align="center" style="font-size: 1.3em; font-weight: bold;">Dependency Injection in Vue.js thanks to DIOD library.</p>
 
 ---
 
@@ -11,7 +11,113 @@
 
 [Documentation & Examples](https://benoitlahoz.github.io/vue-diod) | [DIOD on GitHub](https://github.com/artberri/diod)
 
-## Install & Configure
+## About
+
+As stated by its [author](https://github.com/artberri) on [GitHub](https://github.com/artberri/diod), DIOD is:
+
+> A very opinionated and lightweight (under 2kB minified and gzipped) inversion of control container and dependency injector for Node.js or browser apps. It is available for vanilla Javascript usage but its true power will be shown by building Typescript apps.
+
+**Vue DIOD** is made on top of DIOD and helps avoiding [SOLID](https://en.wikipedia.org/wiki/SOLID) principles violations in [Vue 3](https://vuejs.org/) applications. It allows to configure dependencies at the app level and / or at component level, without children knowing abour the actual implementations.
+
+Basically, it wraps DIOD functionalities in a plugin which uses Vue's `provide` method to make dependencies available to subtree components, by calling `inject` with the registered abstract class as key.
+
+It also provides its [builder](https://benoitlahoz.github.io/vue-diod/composable-and-builder/builder) for bootstrapping dependencies at component level, and a [composable](https://benoitlahoz.github.io/vue-diod/composable-and-builder/use-vue-diod) which main purpose is helping with injection key typings.
+
+## Quick example (with plugin)
+
+#### Define abstraction
+
+```typescript
+export abstract class AbstractCounter {
+  increment(value: number): number;
+  decrement(value: number): number;
+}
+```
+
+#### Create implementation
+
+```typescript
+export class Counter implements AbstractCounter {
+  public increment(value: number): number {
+    return value + 1;
+  }
+
+  public decrement(value: number): number {
+    return value - 1;
+  }
+}
+```
+
+#### Bootstrap dependency container
+
+In your `main.ts` file, for example.
+
+```typescript
+import('reflect-metadata');
+
+// ...
+
+app.use(VueDiod, {
+  injectables: [{ register: AbstractCounter, use: Counter }],
+});
+
+// ...
+```
+
+#### Inject in component
+
+**Without helper**
+
+**NB**: Keeping your application decoupled from Vue DIOD.
+
+In the component's `<script setup>`.
+
+```typescript
+// ...
+
+import type { InjectionKey } from 'vue';
+import { inject } from 'vue';
+
+const Key = AbstractCounter as unknown;
+const counter = inject<() => AbstractCounter>(
+  Key as InjectionKey<AbstractCounter>
+  /* Optional fallback */
+);
+
+const increment = counter.increment.bind(counter);
+const decrement = counter.decrement.bind(counter);
+
+// ...
+```
+
+```html
+<template>
+  <!-- Use in your template -->
+</template>
+```
+
+**With Vue DIOD helper**
+
+```typescript
+// ...
+
+import { useVueDiod } from 'vue-diod';
+const { injectServiceInstance } = useVueDiod();
+
+const counter = injectServiceInstance<AbstractCounter>(
+  AbstractCounter
+  /* Optional fallback */
+);
+
+const increment = counter.increment.bind(counter);
+const decrement = counter.decrement.bind(counter);
+
+// ...
+```
+
+For other examples, please check the [documentation](https://benoitlahoz.github.io/vue-diod) that also provides an [example](https://benoitlahoz.github.io/vue-diod/examples/storage/introduction) for bootstrapping the container at component level.
+
+## Install
 
 ### Install dependencies
 
@@ -94,3 +200,9 @@ export default defineConfig({
   esbuild: false,
 });
 ```
+
+## TODO
+
+- [ ] Tests
+- [ ] Improve documentation
+- [ ] Complete examples in the monorepo packages
