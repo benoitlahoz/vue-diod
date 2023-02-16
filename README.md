@@ -1,5 +1,5 @@
 <div style="width: 100%; text-align: center;">
-<img src="https://github.com/benoitlahoz/vue-diod/raw/main/packages/vue-diod/docs/public/logo-vue-diod%40512px.png" width="200" />
+<img src="https://github.com/benoitlahoz/vue-diod/raw/main/packages/vue-diod/docs/public/logo-vue-diod%40512px.png" width="200" height="237" />
 
 # Vue DIOD
 
