@@ -32,7 +32,7 @@ undefined, the function will call for a global container (the one we have set at
 the root of our application by calling `app.use(VueDiod, { injectables })`).
 
 ::: warning ROADMAP
-In order to not have to pass containe as prop from parent to children
+In order to not have to pass container as prop from parent to children
 components, we're working on providing the same functionality as Vue does,
 namely: the capability to traverse a component's tree upward to get the first
 container that exposes a given 'key'. But, with Pinia usage we can stay with
